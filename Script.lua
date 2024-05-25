@@ -1,5 +1,5 @@
 local NormalWalkSpeed = 10
-local SprintSpeed = 30
+local SprintSpeed = 26
 local CameraEffect = true
 
 local cas = game:GetService("ContextActionService")
