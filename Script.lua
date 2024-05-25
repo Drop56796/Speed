@@ -25,7 +25,7 @@ textBox.Position = UDim2.new(0.5, 0, 0.5, 0)
 textBox.Font = Enum.Font.Oswald
 textBox.AnchorPoint = Vector2.new(0.5, 0.5)
 textBox.TextSize = 40
-textBox.Text = "100%"
+textBox.Text = ""
 textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 textBox.TextTransparency = 0
 textBox.Parent = Bar
@@ -58,12 +58,10 @@ local UIS = game:GetService("UserInputService")
 local StaminaDepleted = false
 
 local function updateStamina()
-    textBox.Text = math.floor(Stamina) .. "%"
     Bar.Size = UDim2.new(Stamina / 100, 0, 1, 0)
-    
     if Stamina <= 0 and not StaminaDepleted then
         StaminaDepleted = true
-        require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("You are Exhausted...",true)
+        require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("You are Exhausted...", true)
     end
 end
 
