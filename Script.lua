@@ -3,15 +3,15 @@ Loading.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 Loading.Name = "奔跑"
 
 local Frame = Instance.new("Frame")
-Frame.Size = UDim2.new(0.3, 0, 0.08, 0)
-Frame.Position = UDim2.new(0.5, 0, 0.7, 0)
+Frame.Size = UDim2.new(0.3, 0, 0.04, 0) -- Reduced height for the stamina bar
+Frame.Position = UDim2.new(0.5, 0, 0.95, 0) -- Positioned at the bottom center
 Frame.AnchorPoint = Vector2.new(0.5, 0.5)
 Frame.Parent = Loading
 
-local uiStroke = Instance.new("UIStroke")
-uiStroke.Parent = Frame
-uiStroke.Color = Color3.fromRGB(0, 0, 0)
-uiStroke.Thickness = 4
+local frameStroke = Instance.new("UIStroke") -- Renamed to avoid conflict with textBox stroke
+frameStroke.Parent = Frame
+frameStroke.Color = Color3.fromRGB(0, 0, 0)
+frameStroke.Thickness = 4
 
 local Bar = Instance.new("Frame")
 Bar.Size = UDim2.new(1, 0, 1, 0) -- Full size relative to Frame
@@ -32,13 +32,21 @@ textBox.Parent = Bar
 textBox.BackgroundTransparency = 1
 textBox.TextScaled = true
 
-local uiStroke = Instance.new("UIStroke")
-uiStroke.Parent = textBox
-uiStroke.Color = Color3.fromRGB(0, 0, 0)
-uiStroke.Thickness = 4
+local textStroke = Instance.new("UIStroke") -- Renamed to avoid conflict with Frame stroke
+textStroke.Parent = textBox
+textStroke.Color = Color3.fromRGB(0, 0, 0)
+textStroke.Thickness = 4
+
+local sprintButton = Instance.new("TextButton")
+sprintButton.Size = UDim2.new(0, 145, 0, 135) -- Width 200 pixels, Height 50 pixels
+sprintButton.Position = UDim2.new(1, -2, 1, -2) -- Positioned in the bottom right corner with padding
+sprintButton.AnchorPoint = Vector2.new(1, 1)
+sprintButton.BackgroundColor3 = Color3.fromRGB(0, 166, 255)
+sprintButton.Text = "" -- Text for identification
+sprintButton.Parent = Loading
 
 local NormalWalkSpeed = 16
-local SprintSpeed = 20
+local SprintSpeed = 22
 local CameraEffect = true
 local Stamina = 100
 local StaminaDrain = 10
@@ -119,17 +127,12 @@ game:GetService("RunService").RenderStepped:Connect(function(deltaTime)
     updateStamina()
 end)
 
-local function handleContext(name, state, input)
-    if state == Enum.UserInputState.Begin then
-        sprinting = true
-        startSprint()
-    else
-        sprinting = false
-        stopSprint()
-    end
-end
+sprintButton.MouseButton1Down:Connect(function()
+    sprinting = true
+    startSprint()
+end)
 
-cas:BindAction("Sprint", handleContext, true, Leftc, RightC)
-cas:SetPosition("Sprint", UDim2.new(.2, 0, .5, 0))
-cas:SetTitle("Sprint", "Sprint")
-cas:GetButton("Sprint").Size = UDim2.new(.3, 0, .3, 0)
+sprintButton.MouseButton1Up:Connect(function()
+    sprinting = false
+    stopSprint()
+end)
