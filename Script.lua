@@ -37,7 +37,7 @@ uiStroke.Parent = textBox
 uiStroke.Color = Color3.fromRGB(0, 0, 0)
 uiStroke.Thickness = 4
 
-local NormalWalkSpeed = 10
+local NormalWalkSpeed = 16
 local SprintSpeed = 20
 local CameraEffect = true
 local Stamina = 100
